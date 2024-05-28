@@ -47,6 +47,25 @@ This repository contains the **HSV Assignment** web application, which is design
 
 ---
 
+## Previews
+
+Landing Page
+
+![Screenshot (394)](https://github.com/TejasSankhla/HSV_Digital_Assignment/assets/96951896/c27c344a-64b6-471f-9eee-309816040130)
+
+Receptionist Home Page
+
+![Screenshot (393)](https://github.com/TejasSankhla/HSV_Digital_Assignment/assets/96951896/c5e57f30-2505-49aa-a059-14ee57ce6217)
+
+Schedule Appointment
+
+![Screenshot (395)](https://github.com/TejasSankhla/HSV_Digital_Assignment/assets/96951896/34fbbf05-3f0c-4eda-9314-58c31897b836)
+
+
+Fetch all Appointments on a Day
+
+![Screenshot (392)](https://github.com/TejasSankhla/HSV_Digital_Assignment/assets/96951896/a0ab83c5-9054-4731-b70e-1ccf82765af6)
+
 
 
 ### Postman Workspace

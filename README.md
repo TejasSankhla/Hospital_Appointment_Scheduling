@@ -1,11 +1,11 @@
 # HSV Assignment
 
-This repository contains the **HSV Assignment** web application, which is designed for scheduling appointments under doctors' availability.
+This repository contains the **HSV Assignment** web application, which is designed for scheduling appointments under doctors' availability. This project gave me an amazing learning experience dwelling deep into NestJS capabilities, learning and implementing in short period of time. 
 
 ## Tech Stack
 
 - **Backend**: NestJS, MongoDB, TypeScript
-- **Frontend**: React, Vite, TailwindCSS
+- **Frontend**: React, Vite, TailwindCSS, Javascript
 
 ## Getting Started
 
@@ -43,10 +43,25 @@ This repository contains the **HSV Assignment** web application, which is design
 
    The application will be available at [http://localhost:3000](http://localhost:3000).
 
+
+
+---
+
+
+
+### Postman Workspace
+```
+https://www.postman.com/aerospace-candidate-89310442/workspace/hsv/collection/28032770-aab7d799-2048-4c68-8f76-487f1754dc18?action=share&creator=28032770
+```
+
+
+##  Note
+I have done my best to complete this assignment while learning new technologies and working on this project for the first time. I have built all the necessary APIs needed for the project. Considering deadline submitting the progress made till now.
+
 ## Repository Link
 
 [HSV Digital Assignment](https://github.com/TejasSankhla/HSV_Digital_Assignment.git)
 
 ---
 
-Feel free to explore and contribute!
+Feel free to reach out!

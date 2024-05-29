@@ -99,7 +99,7 @@ export class AppointmentsController {
       const appointment =
         await this.appointmentsService.findAppointmentByID(id);
       if (!appointment) {
-        throw new NotFoundException('Appointment not found');
+        throw { messsage: 'Appointment not found' };
       }
       return appointment;
     } catch (error) {
@@ -121,12 +121,13 @@ export class AppointmentsController {
         updateAppointmentDto,
       );
       if (!appointment) {
-        throw new NotFoundException('Appointment not found');
+        throw { messsage: 'Appointment not found' };
       }
       return appointment;
     } catch (error) {
       return res.status(501).json({
         err: error,
+        msg: error.message,
       });
     }
   }
@@ -136,12 +137,13 @@ export class AppointmentsController {
     try {
       const appointment = await this.appointmentsService.deleteAppointment(id);
       if (!appointment) {
-        throw new NotFoundException('Appointment not found');
+        throw { messsage: 'Appointment not found' };
       }
       return appointment;
     } catch (error) {
       return res.status(501).json({
         err: error,
+        msg: error.message,
       });
     }
   }

@@ -29,7 +29,7 @@ export class DoctorsService {
       });
       return await createdDoctor.save();
     } catch (error) {
-      throw new BadRequestException('Failed to create doctor');
+      throw error;
     }
   }
 
@@ -58,7 +58,7 @@ export class DoctorsService {
     try {
       const doctor = await this.doctorModel.findById(id).exec();
       if (!doctor) {
-        throw new NotFoundException(`Doctor with ID ${id} not found`);
+        throw { message: `Doctor with ${name} not found` };
       }
       return doctor;
     } catch (error) {
@@ -68,9 +68,9 @@ export class DoctorsService {
   async findIdByName(name: string): Promise<Doctor> {
     try {
       const doctor = await this.doctorModel.findOne({ name }).exec();
-      return doctor;
+      // return doctor;
       if (!doctor) {
-        throw new NotFoundException(`Doctor with ${name} not found`);
+        throw { message: `Doctor with ${name} not found` };
       }
       return doctor;
     } catch (error) {
@@ -84,14 +84,11 @@ export class DoctorsService {
         .findByIdAndUpdate(id, updateDoctorDto, { new: true })
         .exec();
       if (!updatedDoctor) {
-        throw new NotFoundException(`Doctor with ID ${id} not found`);
+        throw { message: `Doctor with ID ${id} not found` };
       }
       return updatedDoctor;
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to update doctor');
+      throw error;
     }
   }
 
@@ -99,14 +96,11 @@ export class DoctorsService {
     try {
       const removedDoctor = await this.doctorModel.findByIdAndDelete(id).exec();
       if (!removedDoctor) {
-        throw new NotFoundException(`Doctor with ID ${id} not found`);
+        throw { message: `Doctor with ID ${id} not found` };
       }
       return removedDoctor;
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to delete doctor');
+      throw error;
     }
   }
 
@@ -114,22 +108,21 @@ export class DoctorsService {
     try {
       const doctor = await this.doctorModel.findById(doctorId).exec();
       if (!doctor) {
-        throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
+        throw { message: `Doctor with ID ${doctorId} not found` };
       }
       return doctor.availability;
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to retrieve doctor availability');
+      throw error;
     }
   }
 
   async updateAvailability(doctorId: string, body: any): Promise<any> {
     try {
+      console.log(body);
+
       const doctor = await this.doctorModel.findById(doctorId).exec();
       if (!doctor) {
-        throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
+        throw { message: `Doctor with ID ${doctorId} not found` };
       }
 
       doctor.availability = body;
@@ -154,13 +147,7 @@ export class DoctorsService {
       await doctor.save();
       return doctor;
     } catch (error) {
-      if (
-        error instanceof NotFoundException ||
-        error instanceof BadRequestException
-      ) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to update doctor availability');
+      throw error;
     }
   }
 

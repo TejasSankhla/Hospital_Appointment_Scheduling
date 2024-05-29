@@ -11,6 +11,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
   Res,
+  Patch,
 } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
@@ -38,7 +39,7 @@ export class DoctorsController {
   ): Promise<any> {
     try {
       const data = await this.doctorsService.login(email, password);
-      console.log(data);
+      // console.log(data);
 
       res.status(201).json({
         data: data,
@@ -89,27 +90,29 @@ export class DoctorsController {
     }
   }
 
-  @Post(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateDoctorDto: UpdateDoctorDto,
-  ): Promise<Doctor> {
-    try {
-      const updatedDoctor = await this.doctorsService.update(
-        id,
-        updateDoctorDto,
-      );
-      if (!updatedDoctor) {
-        throw new NotFoundException(`Doctor with ID ${id} not found`);
-      }
-      return updatedDoctor;
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to update doctor');
-    }
-  }
+  // @Post(':id')
+  // async update(
+  //   @Param('id') id: string,
+  //   @Body() updateDoctorDto: UpdateDoctorDto,
+  // ): Promise<Doctor> {
+  //   try {
+  //   // console.log("here");
+
+  //     const updatedDoctor = await this.doctorsService.update(
+  //       id,
+  //       updateDoctorDto,
+  //     );
+  //     if (!updatedDoctor) {
+  //       throw new NotFoundException(`Doctor with ID ${id} not found`);
+  //     }
+  //     return updatedDoctor;
+  //   } catch (error) {
+  //     if (error instanceof NotFoundException) {
+  //       throw error;
+  //     }
+  //     throw new BadRequestException('Failed to update doctor');
+  //   }
+  // }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Doctor> {
@@ -127,53 +130,61 @@ export class DoctorsController {
     }
   }
 
-  @Get(':doctorId/availability')
+  @Post('get/availability')
   async getDoctorAvailability(
-    @Param('doctorId') doctorId: string,
+    @Body('doctorId') doctorId: string,
+    @Res() res,
   ): Promise<any> {
     // Assuming you only need the availability part
+    console.log('insisde get avilability');
+
     try {
       const availability =
         await this.doctorsService.getDoctorAvailability(doctorId);
       if (!availability) {
-        throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
+        throw { message: `Doctor with ID ${doctorId} not found` };
       }
-      return availability;
+      console.log('response generated');
+
+      return res.status(201).json(availability);
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new InternalServerErrorException(
-        'Failed to retrieve doctor availability',
-      );
+      return res.status(400).json({
+        err: error.code,
+        msg: error.message,
+      });
     }
   }
 
-  @Put(':doctorId/availability')
+  @Post(':doctorId/availability')
   async updateAvailability(
     @Param('doctorId') doctorId: string,
     @Body() body: any,
+    @Res() res,
   ): Promise<any> {
-    // Assuming you only need the availability part
+    console.log(body);
+
     try {
       const updatedAvailability = await this.doctorsService.updateAvailability(
         doctorId,
         body,
       );
       if (!updatedAvailability) {
-        throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
+        throw { message: `Doctor with ID ${doctorId} not found` };
       }
-      return updatedAvailability;
+      // console.log('updated',updatedAvailability);
+
+      return res.status(201).json({
+        availability: updatedAvailability,
+        success: true,
+        err: {},
+      });
     } catch (error) {
-      if (
-        error instanceof NotFoundException ||
-        error instanceof BadRequestException
-      ) {
-        throw error;
-      }
-      throw new InternalServerErrorException(
-        'Failed to update doctor availability',
-      );
+      console.log(error);
+
+      return res.status(400).json({
+        err: error.code,
+        msg: error.message,
+      });
     }
   }
 }

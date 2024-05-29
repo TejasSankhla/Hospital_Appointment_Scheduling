@@ -7,6 +7,7 @@ import LoginError from "./pages/LoginError.jsx";
 import Booked from "./pages/Booked.jsx";
 import { DataProvider } from "./context/data.jsx";
 import "./App.css";
+import DocHome from "./pages/DocHome.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Auth />} />
           <Route path="/rechome" element={<RecHome />} />
           <Route path="/loginerror" element={<LoginError />} />
+          <Route path="/DocHome" element={<DocHome />} />
           <Route path="/book" element={<Booked />} />
           <Route path="/all-app" element={<ListAppointments />} />
         </Routes>

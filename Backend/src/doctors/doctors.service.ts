@@ -41,7 +41,7 @@ export class DoctorsService {
       if (!(await bcrypt.compare(password, doctor.password))) {
         throw { code: 401, message: 'Invalid credentials' };
       }
-      const payload = { email: doctor.email, sub: doctor._id };
+      const payload = { user: doctor };
       const token = this.jwtService.sign(payload);
       return {
         access_token: token,
@@ -78,20 +78,6 @@ export class DoctorsService {
     }
   }
 
-  async update(id: string, updateDoctorDto: UpdateDoctorDto): Promise<Doctor> {
-    try {
-      const updatedDoctor = await this.doctorModel
-        .findByIdAndUpdate(id, updateDoctorDto, { new: true })
-        .exec();
-      if (!updatedDoctor) {
-        throw { message: `Doctor with ID ${id} not found` };
-      }
-      return updatedDoctor;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async remove(id: string): Promise<Doctor> {
     try {
       const removedDoctor = await this.doctorModel.findByIdAndDelete(id).exec();
@@ -118,7 +104,7 @@ export class DoctorsService {
 
   async updateAvailability(doctorId: string, body: any): Promise<any> {
     try {
-      console.log(body);
+      // console.log(body);
 
       const doctor = await this.doctorModel.findById(doctorId).exec();
       if (!doctor) {
@@ -159,7 +145,7 @@ export class DoctorsService {
     try {
       const doctor = await this.doctorModel.findById(doctorId).exec();
       if (!doctor) {
-        throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
+        throw { message: `Doctor with ID ${doctorId} not found` };
       }
 
       doctor.availability[day].slug = upSlug;
@@ -167,13 +153,7 @@ export class DoctorsService {
       await doctor.save();
       return doctor;
     } catch (error) {
-      if (
-        error instanceof NotFoundException ||
-        error instanceof BadRequestException
-      ) {
-        throw error;
-      }
-      throw new BadRequestException('Failed to update slug for the day');
+      throw error;
     }
   }
 }

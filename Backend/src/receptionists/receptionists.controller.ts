@@ -39,6 +39,7 @@ export class ReceptionistsController {
       // console.log(data);
 
       res.status(201).json({
+        token : data.access_token,
         data: data,
         success: true,
         err: {},
@@ -63,16 +64,16 @@ export class ReceptionistsController {
     return this.receptionistsService.findOne(id);
   }
 
-  @Post(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateReceptionistDto: UpdateReceptionistDto,
-  ): Promise<Receptionist> {
-    return this.receptionistsService.update(id, updateReceptionistDto);
-  }
+  // @Post(':id')
+  // async update(
+  //   @Param('id') id: string,
+  //   @Body() updateReceptionistDto: UpdateReceptionistDto,
+  // ): Promise<Receptionist> {
+  //   return this.receptionistsService.update(id, updateReceptionistDto);
+  // }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Receptionist> {
-    return this.receptionistsService.remove(id);
-  }
+  // @Delete(':id')
+  // async remove(@Param('id') id: string): Promise<Receptionist> {
+  //   return this.receptionistsService.remove(id);
+  // }
 }

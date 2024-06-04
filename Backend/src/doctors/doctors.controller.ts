@@ -12,12 +12,14 @@ import {
   InternalServerErrorException,
   Res,
   Patch,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { Doctor } from './doctor.schema';
-
+import { AuthGuard } from '../guard/auth.guard';
 @Controller('doctors')
 export class DoctorsController {
   constructor(private readonly doctorsService: DoctorsService) {}
@@ -40,8 +42,10 @@ export class DoctorsController {
     try {
       const data = await this.doctorsService.login(email, password);
       // console.log(data);
-
+      const token = data.access_token;
+      // @Header('Authorization', `Bearer ${token}`)
       res.status(201).json({
+        token: token,
         data: data,
         success: true,
         err: {},
@@ -54,7 +58,7 @@ export class DoctorsController {
       });
     }
   }
-
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Doctor> {
     try {
@@ -70,6 +74,7 @@ export class DoctorsController {
       throw new InternalServerErrorException('Failed to retrieve doctor');
     }
   }
+  @UseGuards(AuthGuard)
   @Post('name')
   async GetIdByName(@Body('name') name: string, @Res() res): Promise<any> {
     try {
@@ -129,14 +134,14 @@ export class DoctorsController {
       throw new BadRequestException('Failed to delete doctor');
     }
   }
-
+  @UseGuards(AuthGuard)
   @Post('get/availability')
   async getDoctorAvailability(
     @Body('doctorId') doctorId: string,
-    @Res() res,
+    @Res() res, @Req() req
   ): Promise<any> {
     // Assuming you only need the availability part
-    console.log('insisde get avilability');
+    // console.log('insisde get avilability',req );
 
     try {
       const availability =
@@ -144,7 +149,7 @@ export class DoctorsController {
       if (!availability) {
         throw { message: `Doctor with ID ${doctorId} not found` };
       }
-      console.log('response generated');
+      // console.log('response generated');
 
       return res.status(201).json(availability);
     } catch (error) {
@@ -154,14 +159,14 @@ export class DoctorsController {
       });
     }
   }
-
+  @UseGuards(AuthGuard)
   @Post(':doctorId/availability')
   async updateAvailability(
     @Param('doctorId') doctorId: string,
     @Body() body: any,
     @Res() res,
   ): Promise<any> {
-    console.log(body);
+    // console.log(body);
 
     try {
       const updatedAvailability = await this.doctorsService.updateAvailability(

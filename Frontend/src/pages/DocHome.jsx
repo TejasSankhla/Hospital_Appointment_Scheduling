@@ -36,12 +36,13 @@ const DocHome = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
             },
             body: JSON.stringify({ doctorId: doctorId }),
           }
         );
         const fetchedAvailability = await response.json();
-        console.log(fetchedAvailability);
+        // console.log(fetchedAvailability);
 
         setAvailability({
           Monday: {
@@ -103,20 +104,21 @@ const DocHome = () => {
         },
         {}
       );
-      console.log(updatedAvailability);
+      // console.log(updatedAvailability);
       const response = await fetch(
         `http://localhost:3000/doctors/${doctorId}/availability`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
           },
           body: JSON.stringify(updatedAvailability),
         }
       );
       const res = await response.json();
       if (res?.success) {
-        console.log(res);
+        // console.log(res);
         alert("Availability updated successfully!");
       } else throw error;
     } catch (error) {

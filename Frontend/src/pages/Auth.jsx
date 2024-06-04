@@ -14,7 +14,7 @@ export default function Auth() {
     receptionist,
   } = useContext(DataContext);
   const [email, setEmail] = useState("tejas@gmail.com");
-  const [password, setPassword] = useState("456");
+  const [password, setPassword] = useState("123");
   const [type, setType] = useState("doctors");
   const navigate = useNavigate();
   useEffect(() => {
@@ -31,9 +31,10 @@ export default function Auth() {
         body: JSON.stringify({ email, password }),
       });
       const res = await response.json();
-
+      // console.log(res);
       if (res.success) {
         const details = res.data;
+        localStorage.setItem('jwtToken', details.access_token)
         setAccount({
           token: details.access_token,
           name:
@@ -44,7 +45,7 @@ export default function Auth() {
             type === "doctors" ? details.doctor._id : details.receptionist._id,
           type: type,
         });
-        console.log(account);
+        // console.log(account);
         if (type === "doctors") {
           setdoctor(details.doctor);
           navigate("/DocHome");

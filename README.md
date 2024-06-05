@@ -1,6 +1,6 @@
-# HSV Assignment
+# Hospital Appointment Booking Web-app
 
-This repository contains the **HSV Assignment** web application, which is designed for scheduling appointments under doctors' availability. This project gave me an amazing learning experience dwelling deep into NestJS capabilities, learning and implementing in short period of time. 
+This repository contains the web application, which is designed for scheduling appointments under doctors' availability. This project gave me an amazing learning experience dwelling deep into NestJS capabilities, learning and implementing in short period of time. 
 
 ## Tech Stack
 

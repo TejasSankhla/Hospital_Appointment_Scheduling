@@ -37,6 +37,8 @@ export class DoctorsController {
     @Body('password') password: string,
     @Res() res,
   ): Promise<any> {
+    // console.log(email, password);
+    
     try {
       const data = await this.doctorsService.login(email, password);
       // console.log(data);
@@ -50,7 +52,7 @@ export class DoctorsController {
       return res.status(201).json({
         data: {},
         success: false,
-        err: error.message,
+        err: error,
       });
     }
   }
@@ -136,7 +138,7 @@ export class DoctorsController {
     @Res() res,
   ): Promise<any> {
     // Assuming you only need the availability part
-    console.log('insisde get avilability');
+    // console.log('insisde get avilability');
 
     try {
       const availability =

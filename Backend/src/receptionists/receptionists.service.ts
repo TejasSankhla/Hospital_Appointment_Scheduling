@@ -53,7 +53,10 @@ export class ReceptionistsService {
       const receptionist = await this.receptionistModel
         .findOne({ email })
         .exec();
-      // console.log(receptionist, email, password);
+      if(!receptionist){
+        throw { code: 404, message: 'User Not Found' };
+
+      }
 
       if (!(await bcrypt.compare(password, receptionist.password))) {
         throw { code: 401, message: 'Invalid credentials' };

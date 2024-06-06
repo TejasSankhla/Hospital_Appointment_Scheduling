@@ -14,14 +14,14 @@ export default function Auth() {
     receptionist,
   } = useContext(DataContext);
   const [email, setEmail] = useState("tejas@gmail.com");
-  const [password, setPassword] = useState("456");
+  const [password, setPassword] = useState("123");
   const [type, setType] = useState("doctors");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-   
-  }, [doctor, receptionist]);
+  useEffect(() => {}, [doctor, receptionist]);
   const handleLogin = async (event) => {
     event.preventDefault();
+    // console.log(password, email);
     try {
       const response = await fetch(`http://localhost:3000/${type}/login`, {
         method: "POST",
@@ -31,7 +31,7 @@ export default function Auth() {
         body: JSON.stringify({ email, password }),
       });
       const res = await response.json();
-
+      // console.log(res);
       if (res.success) {
         const details = res.data;
         setAccount({
@@ -44,7 +44,7 @@ export default function Auth() {
             type === "doctors" ? details.doctor._id : details.receptionist._id,
           type: type,
         });
-        console.log(account);
+        // console.log(account);
         if (type === "doctors") {
           setdoctor(details.doctor);
           navigate("/DocHome");
@@ -53,11 +53,13 @@ export default function Auth() {
           navigate("/RecHome");
         }
       } else {
-        throw error;
+        throw { code: res?.err?.code, message: res?.err?.message };
       }
     } catch (error) {
-      navigate("/loginerror");
-      console.error("Login error:", error);
+      // navigate("/loginerror");
+      // alert(`${error.message}`);
+      setError(error.message); 
+      // console.error("Login error:", error);
     }
   };
 
@@ -139,6 +141,7 @@ export default function Auth() {
               </span>
             </span>
           </div>
+          {error && <div className="text-red-500 text-sm">{error}</div>}
 
           <div>
             <button

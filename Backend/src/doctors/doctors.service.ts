@@ -37,7 +37,9 @@ export class DoctorsService {
     try {
       const doctor = await this.doctorModel.findOne({ email }).exec();
       // console.log(doctor, email, password);
-
+      if (!doctor) {
+        throw { code: 404, message: 'User Not Found' };
+      }
       if (!(await bcrypt.compare(password, doctor.password))) {
         throw { code: 401, message: 'Invalid credentials' };
       }

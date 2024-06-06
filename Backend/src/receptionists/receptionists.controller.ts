@@ -49,7 +49,7 @@ export class ReceptionistsController {
       return res.status(201).json({
         data: {},
         success: false,
-        err: error.message,
+        err: error,
       });
     }
   }

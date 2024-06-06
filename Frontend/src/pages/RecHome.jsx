@@ -86,11 +86,11 @@ export default function RecHome() {
             Welcome {account?.name}
           </h2>
         </div>
-        <div className="flex justify-around my-5">
+        <div className="flex flex-col md:flex-row md:justify-around my-5">
           <div className="form flex flex-col gap-2 m-5">
             <h2 className="text-lg font-semibold">Schedule Appointments</h2>
             <label className="text-sm text-gray-600">Select Date</label>
-            <DatePicker selected={date} onChange={setDate} />
+            <DatePicker selected={date} onChange={setDate} className="border rounded p-2" />
             <label htmlFor="pname">Patient Name:</label>
             <input
               type="text"
@@ -122,10 +122,10 @@ export default function RecHome() {
               Generate Appointment
             </button>
           </div>
-          <div className="form flex flex-col gap-2 m-5 items-center">
+          <div className="form flex flex-col gap-2 m-5 items-center md:items-start">
             <h2 className="text-lg font-semibold">Get Appointments</h2>
             <label className="text-sm text-gray-600">Enter Date</label>
-            <DatePicker selected={date2} onChange={setDate2} />
+            <DatePicker selected={date2} onChange={setDate2} className="border rounded p-2" />
             <button
               className="m-5 rounded-lg bg-blue-600 p-2 text-white text-lg"
               onClick={getAllAppointments}
@@ -134,11 +134,10 @@ export default function RecHome() {
             </button>
           </div>
         </div>
-        <div className="mt-8 flex items-center justify-center px-8 sm:px-0">
+        <div className="mt-8 flex flex-col items-center justify-center px-8 sm:px-0 md:flex-row">
           <Lock className="h-4 w-4 text-gray-600" />
-          <span className="ml-2 text-sm text-gray-600">
-            Your data is completely secured with us. We don&apos;t share it with
-            anyone.
+          <span className="ml-2 text-sm text-gray-600 text-center md:text-left">
+            Your data is completely secured with us. We don&apos;t share it with anyone.
           </span>
         </div>
       </div>

@@ -41,7 +41,7 @@ const DocHome = () => {
           }
         );
         const fetchedAvailability = await response.json();
-        console.log(fetchedAvailability);
+        // console.log(fetchedAvailability);
 
         setAvailability({
           Monday: {
@@ -103,7 +103,7 @@ const DocHome = () => {
         },
         {}
       );
-      console.log(updatedAvailability);
+      // console.log(updatedAvailability);
       const response = await fetch(
         `http://localhost:3000/doctors/${doctorId}/availability`,
         {
@@ -116,7 +116,7 @@ const DocHome = () => {
       );
       const res = await response.json();
       if (res?.success) {
-        console.log(res);
+        // console.log(res);
         alert("Availability updated successfully!");
       } else throw error;
     } catch (error) {

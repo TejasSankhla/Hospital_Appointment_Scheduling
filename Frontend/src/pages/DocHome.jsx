@@ -36,6 +36,7 @@ const DocHome = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
             },
             body: JSON.stringify({ doctorId: doctorId }),
           }
@@ -110,6 +111,7 @@ const DocHome = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
           },
           body: JSON.stringify(updatedAvailability),
         }

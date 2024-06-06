@@ -7,10 +7,7 @@ import {
   Delete,
   Put,
   Res,
-  HttpException,
-  HttpStatus,
-  NotFoundException,
-  Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
 import {
@@ -18,6 +15,7 @@ import {
   UpdateAppointmentDto,
 } from './dto/create-appointment.dto';
 import { Appointment } from './appointments.schema';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('appointments')
 export class AppointmentsController {
@@ -59,7 +57,7 @@ export class AppointmentsController {
       });
     }
   }
-
+  @UseGuards(AuthGuard)
   @Post('day')
   async findAppointmentByDay(
     @Body() updateAppointmentDto: UpdateAppointmentDto,
@@ -89,61 +87,6 @@ export class AppointmentsController {
     } catch (error) {
       return res.status(501).json({
         err: error,
-      });
-    }
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string, @Res() res): Promise<Appointment> {
-    try {
-      const appointment =
-        await this.appointmentsService.findAppointmentByID(id);
-      if (!appointment) {
-        throw { messsage: 'Appointment not found' };
-      }
-      return appointment;
-    } catch (error) {
-      return res.status(501).json({
-        err: error,
-      });
-    }
-  }
-
-  @Post(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateAppointmentDto: UpdateAppointmentDto,
-    @Res() res,
-  ): Promise<Appointment> {
-    try {
-      const appointment = await this.appointmentsService.updateAppointment(
-        id,
-        updateAppointmentDto,
-      );
-      if (!appointment) {
-        throw { messsage: 'Appointment not found' };
-      }
-      return appointment;
-    } catch (error) {
-      return res.status(501).json({
-        err: error,
-        msg: error.message,
-      });
-    }
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string, @Res() res): Promise<Appointment> {
-    try {
-      const appointment = await this.appointmentsService.deleteAppointment(id);
-      if (!appointment) {
-        throw { messsage: 'Appointment not found' };
-      }
-      return appointment;
-    } catch (error) {
-      return res.status(501).json({
-        err: error,
-        msg: error.message,
       });
     }
   }

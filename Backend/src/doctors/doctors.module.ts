@@ -9,10 +9,6 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     MongooseModule.forFeature([{ name: Doctor.name, schema: DoctorSchema }]),
     PassportModule,
-    JwtModule.register({
-      secret: 'your_jwt_secret', // Ideally, you should use ConfigService to inject the secret
-      signOptions: { expiresIn: '60m' },
-    }),
   ],
   providers: [DoctorsService],
   controllers: [DoctorsController],

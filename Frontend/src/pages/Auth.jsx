@@ -34,6 +34,7 @@ export default function Auth() {
       // console.log(res);
       if (res.success) {
         const details = res.data;
+        localStorage.setItem('jwtToken', details.access_token)
         setAccount({
           token: details.access_token,
           name:

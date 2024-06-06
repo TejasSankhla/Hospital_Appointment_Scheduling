@@ -13,10 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
       { name: Receptionist.name, schema: ReceptionistSchema },
     ]),
     PassportModule,
-    JwtModule.register({
-      secret: 'your_jwt_secret', // Ideally, you should use ConfigService to inject the secret
-      signOptions: { expiresIn: '60m' },
-    }),
+   
   ],
   controllers: [ReceptionistsController],
   providers: [ReceptionistsService],

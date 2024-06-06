@@ -93,49 +93,5 @@ export class AppointmentsService {
     }
   }
 
-  async findAppointmentByID(id: string): Promise<Appointment> {
-    try {
-      const appointment = await this.appointmentModel
-        .findById(id)
-        .populate('doctor')
-        .exec();
-      if (!appointment) {
-        throw { message: 'Appointment not found' };
-      }
-      return appointment;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async updateAppointment(
-    id: string,
-    updateAppointmentDto: UpdateAppointmentDto,
-  ): Promise<Appointment> {
-    try {
-      const updatedAppointment = await this.appointmentModel
-        .findByIdAndUpdate(id, updateAppointmentDto, { new: true })
-        .exec();
-      if (!updatedAppointment) {
-        throw { message: 'Appointment not found' };
-      }
-      return updatedAppointment;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async deleteAppointment(id: string): Promise<Appointment> {
-    try {
-      const deletedAppointment = await this.appointmentModel
-        .findByIdAndDelete(id)
-        .exec();
-      if (!deletedAppointment) {
-        throw { message: 'Appointment not found' };
-      }
-      return deletedAppointment;
-    } catch (error) {
-      throw error;
-    }
-  }
+  
 }

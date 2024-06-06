@@ -20,6 +20,7 @@ export default function RecHome() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
         },
         body: JSON.stringify({ name: doctor }),
       });
@@ -41,6 +42,7 @@ export default function RecHome() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
           },
           body: JSON.stringify(newAppointment),
         });
@@ -63,11 +65,13 @@ export default function RecHome() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
         },
         body: JSON.stringify({ Appointment_date: date2 }),
       });
       const res = await response.json();
-      console.log(res);
+
+      // console.log(res);
       // console.log("here");
 
       setapp(res.app);

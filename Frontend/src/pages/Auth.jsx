@@ -23,7 +23,7 @@ export default function Auth() {
     event.preventDefault();
     // console.log(password, email);
     try {
-      const response = await fetch(`http://localhost:3000/${type}/login`, {
+      const response = await fetch(`${import.meta.env.BASE_URL}/${type}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Auth() {
       // navigate("/loginerror");
       // alert(`${error.message}`);
       setError(error.message); 
-      // console.error("Login error:", error);
+      console.error("Login error:", error);
     }
   };
 

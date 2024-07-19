@@ -53,6 +53,8 @@ export class DoctorsController {
         err: {},
       });
     } catch (error) {
+      console.log(error);
+      
       return res.status(201).json({
         data: {},
         success: false,

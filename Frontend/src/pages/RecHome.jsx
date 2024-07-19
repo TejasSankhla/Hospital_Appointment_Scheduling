@@ -16,7 +16,7 @@ export default function RecHome() {
   const [genAppointmentError, setgenAppointmentError] = useState("");
   async function genAppointment() {
     try {
-      const response = await fetch(`http://localhost:3000/doctors/name`, {
+      const response = await fetch(`${import.meta.env.BASE_URL}/doctors/name`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default function RecHome() {
         // console.log(newAppointment);
         setapp((prevApp) => [...prevApp, newAppointment]);
         console.log("New appointment generated:", newAppointment);
-        const booking = await fetch(`http://localhost:3000/appointments`, {
+        const booking = await fetch(`${import.meta.env.BASE_URL}/appointments`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function RecHome() {
 
   async function getAllAppointments() {
     try {
-      const response = await fetch(`http://localhost:3000/appointments/day`, {
+      const response = await fetch(`${import.meta.env.BASE_URL}/appointments/day`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

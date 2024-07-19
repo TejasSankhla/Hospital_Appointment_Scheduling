@@ -50,7 +50,7 @@ export class DoctorsService {
         doctor,
       };
     } catch (error) {
-      console.log('here');
+      // console.log('here');
 
       throw error;
     }

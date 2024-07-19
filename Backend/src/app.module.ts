@@ -17,7 +17,7 @@ import { jwtConstants } from './constants/jwtConstants';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('MONGODB_URI'),
+        uri: configService.get('MONGO_URL'),
       }),
       inject: [ConfigService],
     }),

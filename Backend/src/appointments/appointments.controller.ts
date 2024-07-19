@@ -39,6 +39,7 @@ export class AppointmentsController {
       return res.status(201).json({ appointment, success: true, err: {} });
     } catch (error) {
       return res.status(501).json({
+        success: false,
         err: error,
       });
     }

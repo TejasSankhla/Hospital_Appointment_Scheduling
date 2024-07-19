@@ -13,14 +13,14 @@ export default function RecHome() {
   const [pnum, setPnum] = useState("");
   const [doctor, setDoctor] = useState("");
   const [date2, setDate2] = useState(new Date());
-
+  const [genAppointmentError, setgenAppointmentError] = useState("");
   async function genAppointment() {
     try {
       const response = await fetch(`http://localhost:3000/doctors/name`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
         body: JSON.stringify({ name: doctor }),
       });
@@ -42,7 +42,7 @@ export default function RecHome() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
           body: JSON.stringify(newAppointment),
         });
@@ -52,10 +52,13 @@ export default function RecHome() {
         if (findata.success) {
           setBooked(findata.appointment);
           navigate("/book");
+        } else {
+          throw { code: findata?.err.code, message: findata?.err.message };
         }
       }
     } catch (error) {
-      console.log("Error generating appointment:", error);
+      setgenAppointmentError(error.message);
+      // console.log("Error generating appointment:", error);
     }
   }
 
@@ -65,7 +68,7 @@ export default function RecHome() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
         body: JSON.stringify({ Appointment_date: date2 }),
       });
@@ -75,7 +78,7 @@ export default function RecHome() {
       // console.log("here");
 
       setapp(res.app);
-      console.log("Appointments for the day:", res.app);
+      // console.log("Appointments for the day:", res.app);
       navigate("/all-app");
     } catch (error) {
       console.log("Error fetching appointments:", error);
@@ -94,7 +97,11 @@ export default function RecHome() {
           <div className="form flex flex-col gap-2 m-5">
             <h2 className="text-lg font-semibold">Schedule Appointments</h2>
             <label className="text-sm text-gray-600">Select Date</label>
-            <DatePicker selected={date} onChange={setDate} className="border rounded p-2" />
+            <DatePicker
+              selected={date}
+              onChange={setDate}
+              className="border rounded p-2"
+            />
             <label htmlFor="pname">Patient Name:</label>
             <input
               type="text"
@@ -111,7 +118,7 @@ export default function RecHome() {
               onChange={(e) => setPnum(e.target.value)}
               className="border rounded p-2"
             />
-            <label htmlFor="docid">Doctor ID:</label>
+            <label htmlFor="docid">Doctor Name:</label>
             <input
               type="text"
               name="docid"
@@ -119,6 +126,8 @@ export default function RecHome() {
               onChange={(e) => setDoctor(e.target.value)}
               className="border rounded p-2"
             />
+          {genAppointmentError && <div className="text-red-500 text-sm">{genAppointmentError}</div>}
+
             <button
               className="m-5 rounded-lg bg-blue-600 p-2 text-white text-lg"
               onClick={genAppointment}
@@ -129,7 +138,11 @@ export default function RecHome() {
           <div className="form flex flex-col gap-2 m-5 items-center md:items-start">
             <h2 className="text-lg font-semibold">Get Appointments</h2>
             <label className="text-sm text-gray-600">Enter Date</label>
-            <DatePicker selected={date2} onChange={setDate2} className="border rounded p-2" />
+            <DatePicker
+              selected={date2}
+              onChange={setDate2}
+              className="border rounded p-2"
+            />
             <button
               className="m-5 rounded-lg bg-blue-600 p-2 text-white text-lg"
               onClick={getAllAppointments}
@@ -141,7 +154,8 @@ export default function RecHome() {
         <div className="mt-8 flex flex-col items-center justify-center px-8 sm:px-0 md:flex-row">
           <Lock className="h-4 w-4 text-gray-600" />
           <span className="ml-2 text-sm text-gray-600 text-center md:text-left">
-            Your data is completely secured with us. We don&apos;t share it with anyone.
+            Your data is completely secured with us. We don&apos;t share it with
+            anyone.
           </span>
         </div>
       </div>

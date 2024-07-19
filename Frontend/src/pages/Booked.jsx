@@ -21,46 +21,50 @@ export default function Booked() {
   };
 
   return (
-    <div className="wrap flex justify-center items-center my-20">
-      <div className="w-[400px] rounded-md border p-4">
-        <h1 className="text-lg font-semibold text-center">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-bold text-center text-gray-800">
           Appointment Details
         </h1>
-        <p className="mt-3 text-sm text-gray-600 text-center">
-          Appointment Booked successfully
+        <p className="mt-3 text-center text-green-600 font-semibold">
+          Appointment booked successfully
         </p>
-        <div className="mt-5">
-          <table className="w-full">
+        <div className="mt-6">
+          <table className="w-full text-left">
             <tbody>
-              <tr>
-                <td>
+              <tr className="border-b">
+                <td className="py-2">
                   <strong>Appointment Date:</strong>
                 </td>
-                <td>{formatISOToDate(Booked.Appointment_date)}</td>
+                <td className="py-2 text-gray-700">
+                  {formatISOToDate(Booked.Appointment_date)}
+                </td>
               </tr>
-              <tr>
-                <td>
+              <tr className="border-b">
+                <td className="py-2">
                   <strong>Appointment Time:</strong>
                 </td>
-                <td>{parseISOToTime(Booked.Appointment_time)}</td>
+                <td className="py-2 text-gray-700">
+                  {parseISOToTime(Booked.Appointment_time)}
+                </td>
               </tr>
-              <tr>
-                <td>
+              <tr className="border-b">
+                <td className="py-2">
                   <strong>Patient Name:</strong>
                 </td>
-                <td>{Booked.patient_name}</td>
+                <td className="py-2 text-gray-700">{Booked.patient_name}</td>
               </tr>
-              <tr>
-                <td>
+              <tr className="border-b">
+                <td className="py-2">
                   <strong>Patient Number:</strong>
                 </td>
-                <td>{Booked.patient_num}</td>
+                <td className="py-2 text-gray-700">{Booked.patient_num}</td>
               </tr>
-              <tr>
-                <td>
+              <tr className="border-b">
+                <td className="py-2">
                   <strong>Doctor:</strong>
                 </td>
-                <td>{Booked.doctor}</td>
+                <td className="py-2 text-gray-700">{Booked.doctor}</td>
               </tr>
             </tbody>
           </table>

@@ -36,7 +36,7 @@ const DocHome = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
             },
             body: JSON.stringify({ doctorId: doctorId }),
           }
@@ -111,19 +111,22 @@ const DocHome = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
           body: JSON.stringify(updatedAvailability),
         }
       );
       const res = await response.json();
+      console.log(res);
       if (res?.success) {
         // console.log(res);
         alert("Availability updated successfully!");
-      } else throw error;
+      } else {
+        throw error;
+      }
     } catch (error) {
       console.error("Error updating availability:");
-      alert("Failed to update availability.");
+      // alert(`${error}`);
     }
   };
 

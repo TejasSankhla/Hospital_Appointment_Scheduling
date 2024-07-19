@@ -27,7 +27,10 @@ export class AppointmentsService {
         createAppointmentDto.doctor,
       );
       if (!availability || !availability[day]) {
-        throw { message: `Doctor's availability for ${day} not found` };
+        throw {
+          code: 409,
+          message: `Doctor is not available for ${day}`,
+        };
       }
 
       const { from, to, slug } = availability[day];
@@ -36,8 +39,8 @@ export class AppointmentsService {
 
       if (to.getTime() < updatedSlug.getTime()) {
         throw {
-          message:
-            "Appointment can't be scheduled outside doctor's availability time",
+          code: 409,
+          message: "Appointment outside doctor's availability",
         };
       }
 
@@ -92,6 +95,4 @@ export class AppointmentsService {
       throw error;
     }
   }
-
-  
 }

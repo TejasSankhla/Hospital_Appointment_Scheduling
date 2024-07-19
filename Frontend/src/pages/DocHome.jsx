@@ -31,7 +31,7 @@ const DocHome = () => {
     const fetchAvailability = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.BASE_URL}/doctors/get/availability`,
+          `${import.meta.env.VITE_BASE_URL}/doctors/get/availability`,
           {
             method: "POST",
             headers: {
@@ -106,7 +106,7 @@ const DocHome = () => {
       );
       // console.log(updatedAvailability);
       const response = await fetch(
-        `${import.meta.env.BASE_URL}/doctors/${doctorId}/availability`,
+        `${import.meta.env.VITE_BASE_URL}/doctors/${doctorId}/availability`,
         {
           method: "POST",
           headers: {

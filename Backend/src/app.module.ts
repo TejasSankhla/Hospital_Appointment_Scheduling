@@ -9,6 +9,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants/jwtConstants';
+const connectDB = async (configService: ConfigService) => {
+  return {
+    
+    uri: configService.get('MONGO_URL'),
+  };
+};
 @Module({
   imports: [
     // Load environment variables from .env file
@@ -16,9 +22,7 @@ import { jwtConstants } from './constants/jwtConstants';
 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('MONGO_URL'),
-      }),
+      useFactory: connectDB,
       inject: [ConfigService],
     }),
 

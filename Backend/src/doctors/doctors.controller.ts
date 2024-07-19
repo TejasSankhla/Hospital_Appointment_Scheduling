@@ -40,6 +40,7 @@ export class DoctorsController {
     @Res() res,
   ): Promise<any> {
     // console.log(email, password);
+    console.log("login");
     
     try {
       const data = await this.doctorsService.login(email, password);

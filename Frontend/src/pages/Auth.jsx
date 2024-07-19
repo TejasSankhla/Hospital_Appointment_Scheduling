@@ -21,20 +21,23 @@ export default function Auth() {
   useEffect(() => {}, [doctor, receptionist]);
   const handleLogin = async (event) => {
     event.preventDefault();
-    // console.log(password, email);
+    // console.log(password, email, import.meta.env.VITE_BASE_URL);
     try {
-      const response = await fetch(`${import.meta.env.BASE_URL}/${type}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/${type}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
       const res = await response.json();
-      // console.log(res);
+      // console.log("response", res);
       if (res.success) {
         const details = res.data;
-        localStorage.setItem('jwtToken', details.access_token)
+        localStorage.setItem("jwtToken", details.access_token);
         setAccount({
           token: details.access_token,
           name:
@@ -59,7 +62,7 @@ export default function Auth() {
     } catch (error) {
       // navigate("/loginerror");
       // alert(`${error.message}`);
-      setError(error.message); 
+      setError(error.message);
       console.error("Login error:", error);
     }
   };
